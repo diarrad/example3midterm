@@ -1,15 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class CoinScript : MonoBehaviour
 {
-    //The player calls this function on the coin whenever they bump into it
-    //You can change its contents if you want something different to happen on collection
-    //For example, what if the coin teleported to a new location instead of being destroyed?
-    public void GetBumped()
+    public static int coinCount = 0;
+    public int totalCoins;
+    public int coinsCollected;
+    
+   void OnTriggerEnter2D(Collider2D other)
     {
-        //This destroys the coin
-        Destroy(gameObject);
+        if (other.tag == "Player")
+        {
+            Debug.Log(" Coin collected !");
+            coinCount++;
+            
+
+            //This destroys the coin
+            Destroy(gameObject);
+            
+        }
     }
+
+    public void CollectCoin()
+    {
+        coinsCollected++;
+        if (coinsCollected >= totalCoins)
+        {
+            Debug.Log(" You Win !");
+            SceneManager.LoadScene("You win");
+        }
+    }
+    
+   
 }
